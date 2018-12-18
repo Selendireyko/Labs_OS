@@ -20,8 +20,8 @@ void* thread_func ()
     	printf ("Create ERROR\n"); ///ошибка создания разделяемой памяти
         exit (0);
     }
-    char* addr = shmat (smid, NULL, 0);
-	if (addr == (char*)-1)
+    char* ad = shmat (smid, NULL, 0);
+	if (ad == (char*)-1)
     {
 		printf ("Connection ERROR\n"); /// ошибка подключения разделяемой памяти
 		exit (0);
@@ -31,7 +31,7 @@ void* thread_func ()
 	{
         timer = time(0);
         pthread_mutex_lock(&mut); ///блокировка потоков
-        sprintf(addr, "%s", ctime(&timer));
+        sprintf(ad, "%s", ctime(&timer));
         pthread_mutex_unlock(&mut);
 		sleep (1);
 	}
