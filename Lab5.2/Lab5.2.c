@@ -29,11 +29,11 @@ void* thread_func ()
     time_t timer;
 	while (1)
 	{
-        sleep (1);
         timer = time(0);
         pthread_mutex_lock(&mut); ///блокировка потоков
         sprintf(ad, "%s", ctime(&timer));
         pthread_mutex_unlock(&mut);
+        sleep (1);
 	}
 	exit (0);
 }
@@ -63,10 +63,10 @@ int main()
 	}
 	while (1)
 	{
-        sleep (1);
         pthread_mutex_lock (&mut);
 		printf ("%s\n", ad);
 		pthread_mutex_unlock(&mut);
+        sleep (1);
 	}
 	pthread_mutex_destroy(&mut);
 	exit (0);
