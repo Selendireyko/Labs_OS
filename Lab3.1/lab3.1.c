@@ -38,6 +38,7 @@ int main ()
             char *buf = (char*) calloc (50, sizeof (char)); /// выделение памяти под сроку
             read (fifo_read, buf, 50);
             close (fifo_read);
+            printf ("%d - doch id\n", getpid());
             printf ("%s\n", buf); /// вывод времени
             break;
         }
@@ -51,6 +52,7 @@ int main ()
             }
 		time_t t_p = time (0);
 		write (fifo_write, ctime(&t_p), 50); /// запись времени в ФИФО
+		printf ("%d - parent id\n", getpid());
 		close (fifo_write);
 		break;
 	}
