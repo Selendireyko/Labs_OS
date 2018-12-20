@@ -29,6 +29,7 @@ int main ()
             close (p[1]); /// 1-запись, 0-читение
             read(p[0], &buf, sizeof (time_t));
             close (p[0]);
+            printf("%d - doch id\n", getpid());
             printf ("%s\n", ctime (&buf));
             break;
         }
@@ -37,6 +38,7 @@ int main ()
             time_t t = time (0);
             close (p[0]);
             write (p[1], &t, sizeof (time_t));
+            printf("%d - parent id\n", getpid());
             close (p[1]);
             break;
         }
