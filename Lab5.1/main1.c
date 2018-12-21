@@ -32,14 +32,21 @@ int main()
 		printf ("Connection ERROR\n");
 		exit (0);
 	}
-	semop (sm, &sm_open, 1);
-	while (1)
+    // semop (sm, &sm_open, 1);
+    semctl(sm, 0, SETVAL, 2); // задаем значение семафора
+    while (1)
 	{
-	    sleep(2);
-		semop(sm, &sm_lock, 1);
-		time_t tt = time(0);
-		sprintf(ad, "%s", ctime(&tt));
-		semop (sm, &sm_open, 1);
-	}
+        if (semctl(sm, 0, GETVAL) == 2)
+        {
+            time_t tt = time(0);
+            sprintf(ad, "%s", ctime(&tt));
+            semctl(sm, 0, SETVAL, 1);
+            sleep(1);
+            // sleep(2);
+            // semop(sm, &sm_lock, 1);
+            // semop (sm, &sm_open, 1);
+        }
+        semctl(sm, 0, SETVAL, 2);
+    }
 	exit (0);
 }

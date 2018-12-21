@@ -34,10 +34,14 @@ int main()
     }
     while (1)
     {
-        sleep (1);
-        semop (sm , &sm_lock, 1);
-		printf("%s", ad);
-		semop (sm, &sm_open, 1);
+        if (semctl(sm, 0, GETVAL) == 1)
+        {
+            printf("%s", ad);
+            semctl(sm, 0, SETVAL, 2);
+        }
+        // sleep (1);
+        // semop (sm , &sm_lock, 1);
+		// semop (sm, &sm_open, 1);
     }
     exit (0);
 }
